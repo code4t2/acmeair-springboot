@@ -30,7 +30,19 @@ public class Application extends SpringBootServletInitializer {
 		ApplicationContext appContext = new Application().configure(new SpringApplicationBuilder(Application.class))
 				.run(args);
 
+		Map<String, Object> dataServiceBeans = appContext.getBeansWithAnnotation(DataService.class);
+		TreeMap<String, String> services = new TreeMap<String, String>();
+		for(Map.Entry<String,Object> entry : dataServiceBeans.entrySet()) {
+			Object obj = entry.getValue();
 
+			Class clazz = obj.getClass();
+			Annotation qualifer = clazz.getAnnotation(DataService.class);
+			DataService service = (DataService) qualifer;
+			
+			//logger.fine("   name="+service.name()+" description="+service.description());s
+			services.put(service.name(), service.description());
+		}
+		ServiceLocator.instance().setServices(services);
 	}
 	
 	@Override
