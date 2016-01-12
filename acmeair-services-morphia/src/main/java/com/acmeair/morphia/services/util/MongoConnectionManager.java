@@ -93,7 +93,7 @@ public class MongoConnectionManager implements MorphiaConstants{
 			.threadsAllowedToBlockForConnectionMultiplier(threadsAllowedToBlockForConnectionMultiplier);
 
 				
-		try {
+		//try {
 			//Check if VCAP_SERVICES exist, and if it does, look up the url from the credentials.
 			String vcapJSONString = System.getenv("VCAP_SERVICES");
 			if (vcapJSONString != null) {
@@ -155,15 +155,16 @@ public class MongoConnectionManager implements MorphiaConstants{
 
 				if(db == null){
 					logger.severe("Unable to retreive reference to database, please check the server logs.");
+					return;
 				} else {
 					
 					morphia.getMapper().getConverters().addConverter(new BigDecimalConverter());
 					datastore = morphia.createDatastore(new MongoClient(db.getMongo().getConnectPoint(),builder.build()), db.getName());
 				}
 			}
-		} catch (UnknownHostException e) {
-			logger.severe("Caught Exception : " + e.getMessage() );				
-		}			
+		//} catch (UnknownHostException e) {
+		//	logger.severe("Caught Exception : " + e.getMessage() );				
+		//}			
 
 		logger.info("created mongo datastore with options:"+datastore.getMongo().getMongoClientOptions());
 	}
@@ -175,12 +176,7 @@ public class MongoConnectionManager implements MorphiaConstants{
 	public Datastore getDatastore(){
 		return datastore;
 	}
-	
-	@SuppressWarnings("deprecation")
-	public String getDriverVersion(){
-		return datastore.getMongo().getVersion();
-	}
-	
+
 	public String getMongoVersion(){
 		return datastore.getDB().command("buildInfo").getString("version");
 	}
