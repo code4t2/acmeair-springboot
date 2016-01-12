@@ -40,6 +40,7 @@
     dojo.require("dijit.Declaration");
 	
 	dojo.require("dojo.currency");
+	dojo.require("dojo.date.stamp");
 	
 	dojo.require("dojo.store.Memory");
 	dojo.require("dojox.grid.DataGrid");
@@ -56,8 +57,8 @@
 			content : {
 				fromAirport: fromAirport,
 				toAirport: toAirport,
-				fromDate: fromDate,
-				returnDate: returnDate,
+				fromDate: dojo.date.stamp.toISOString(fromDate, { selector: "date" }),
+				returnDate: dojo.date.stamp.toISOString(returnDate, { selector: "date" }),
 				oneWay: oneWayChecked
 			},
 			url: 'rest/api/flights/queryflights',
