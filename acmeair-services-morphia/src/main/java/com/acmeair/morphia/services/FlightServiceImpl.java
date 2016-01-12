@@ -44,7 +44,7 @@ import org.mongodb.morphia.query.Query;
 
 @Primary
 @Service
-@DataService(name=MorphiaConstants.KEY,description=MorphiaConstants.KEY_DESCRIPTION)
+@DataService(name=MorphiaConstants.KEY+ ".FlightService",description=MorphiaConstants.KEY_DESCRIPTION)
 public class FlightServiceImpl extends FlightService implements  MorphiaConstants {
 
 	//private final static Logger logger = Logger.getLogger(FlightService.class.getName()); 
