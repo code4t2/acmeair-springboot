@@ -9,6 +9,7 @@ There are two implementations of the application tier. Each application implemen
 - **Java**
   - WebSphere Liberty Profile to WebSphere eXtreme Scale
   - WebSphere Liberty Profile to Mongodb
+  - **Spring Boot to Mongodb** (this repository)
 
 ## Repository Contents
 
@@ -17,7 +18,7 @@ Source:
 - **acmeair-common**: The Java entities used throughout the application
 - **acmeair-loader**:  A tool to load the Java implementation data store
 - **acmeair-services**:  The Java data services interface definitions
-- **acmeair-service-wxs**:  A WebSphere eXtreme Scale data service implementation
+- **~~acmeair-service-wxs~~**:  A WebSphere eXtreme Scale data service implementation
 - **acmeair-service-morphia**:  A mongodb data service implementation
 - **acmeair-webapp**:  The Web 2.0 application and associated Java REST services
 
@@ -29,6 +30,9 @@ Source:
 * Deploying to [IBM Bluemix](Documentation/Bluemix_Instructions.md)
 * Acme Air for Node.js [Instructions](https://github.com/acmeair/acmeair-nodejs/blob/master/README.md)
 * Extending Acme Air by [adding additional data services.](Documentation/Extending_AcmeAir_Services.md)
+* --
+* Deploying the sample application with [Spring Boot](Documentation/SpringBoot_Instructions.md)
+* Spring Boot to [MongoDB Instructions](Documentation/SpringBoot_to_Mongo_Instructions.md)
 
 ## Ask Questions
 

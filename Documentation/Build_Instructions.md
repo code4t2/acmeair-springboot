@@ -20,7 +20,7 @@ export PATH=$JAVA_HOME/bin:$PATH
 * Ensure git and mvn are in your path
 
 
-## Download the following free for developers or trial versions of WebSphere software
+## ~~Download the following free for developers or trial versions of WebSphere software~~
 
  
 WebSphere eXtreme Scale 8.6.0.x
@@ -65,7 +65,7 @@ mvn install:install-file -Dfile=objectgrid.jar -DgroupId=com.ibm.websphere.objec
 * Go into a directory that you want to have the code in and use git to clone it
 ```text
 cd work
-git clone https://github.com/acmeair/acmeair.git
+git clone https://github.com/liouxiao/acmeair-springboot.git acmeair
 ```
 
 * For the rest of these instructions we will assume this to be the ACMEAIR_SRCDIR
@@ -89,10 +89,10 @@ During the build process, you may choose to  package either one of the services,
 
 To pick a single service use the "-Pservice=<serviceName>" option on the gradle command.   
 
-For example, to only include the wxs service (located in the acmeair-services-wxs module) to use WebSphere eXtreme Scale, the build command would be as follows:
+For example, to only include the wxs service (located in the acmeair-services-morphia module) to use WebSphere eXtreme Scale, the build command would be as follows:
 
 ```text
-./gradlew -Pservice=wxs clean build
+./gradlew -Pservice=morphia clean build
 ```
 
 To package ALL of the services in the .war file, the "-Pservice=" parameter can be omitted. 
