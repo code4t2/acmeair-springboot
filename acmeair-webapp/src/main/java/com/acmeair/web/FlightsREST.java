@@ -48,15 +48,15 @@ public class FlightsREST {
 	public TripFlightOptions getTripFlights(
 			@FormParam("fromAirport") String fromAirport,
 			@FormParam("toAirport") String toAirport,
-			@FormParam("fromDate") Date fromDate,
-			@FormParam("returnDate") Date returnDate,
+			@FormParam("fromDate")  IsoDate fromDate,
+			@FormParam("returnDate") IsoDate returnDate,
 			@FormParam("oneWay") boolean oneWay
 			) {
 		TripFlightOptions options = new TripFlightOptions();
 		ArrayList<TripLegInfo> legs = new ArrayList<TripLegInfo>();
 		
 		TripLegInfo toInfo = new TripLegInfo();
-		List<Flight> toFlights = flightService.getFlightByAirportsAndDepartureDate(fromAirport, toAirport, fromDate);
+		List<Flight> toFlights = flightService.getFlightByAirportsAndDepartureDate(fromAirport, toAirport, fromDate.getDate());
 		toInfo.setFlightsOptions(toFlights);
 		legs.add(toInfo);
 		toInfo.setCurrentPage(0);
@@ -66,7 +66,7 @@ public class FlightsREST {
 		
 		if (!oneWay) {
 			TripLegInfo retInfo = new TripLegInfo();
-			List<Flight> retFlights = flightService.getFlightByAirportsAndDepartureDate(toAirport, fromAirport, returnDate);
+			List<Flight> retFlights = flightService.getFlightByAirportsAndDepartureDate(toAirport, fromAirport, returnDate.getDate());
 			retInfo.setFlightsOptions(retFlights);
 			legs.add(retInfo);
 			retInfo.setCurrentPage(0);
