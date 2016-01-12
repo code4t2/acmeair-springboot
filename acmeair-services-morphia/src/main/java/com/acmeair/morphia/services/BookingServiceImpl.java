@@ -9,6 +9,10 @@ import javax.inject.Inject;
 
 import org.mongodb.morphia.Datastore;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
+
 import com.acmeair.entities.Booking;
 import com.acmeair.entities.Customer;
 import com.acmeair.entities.Flight;
@@ -25,7 +29,8 @@ import com.acmeair.service.ServiceLocator;
 import org.mongodb.morphia.query.Query;
 
 
-
+@Primary
+@Service
 @DataService(name=MorphiaConstants.KEY,description=MorphiaConstants.KEY_DESCRIPTION)
 public class BookingServiceImpl implements BookingService, MorphiaConstants {
 
@@ -35,10 +40,14 @@ public class BookingServiceImpl implements BookingService, MorphiaConstants {
 	Datastore datastore;
 	
 	@Inject 
+	@Autowired
 	KeyGenerator keyGenerator;
 	
-	private FlightService flightService = ServiceLocator.instance().getService(FlightService.class);
-	private CustomerService customerService = ServiceLocator.instance().getService(CustomerService.class);
+	@Autowired
+	private FlightService flightService; // = ServiceLocator.instance().getService(FlightService.class);
+	
+	@Autowired
+	private CustomerService customerService; // = ServiceLocator.instance().getService(CustomerService.class);
 
 
 	@PostConstruct

@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
 import com.acmeair.entities.Customer;
 import com.acmeair.entities.Customer.MemberShipStatus;
 import com.acmeair.entities.Customer.PhoneType;
@@ -21,7 +23,8 @@ import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
 
 
-
+@Primary
+@Service
 @DataService(name=MorphiaConstants.KEY,description=MorphiaConstants.KEY_DESCRIPTION)
 public class CustomerServiceImpl extends CustomerService implements MorphiaConstants {	
 		

@@ -23,6 +23,10 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
+
 import com.acmeair.entities.AirportCodeMapping;
 import com.acmeair.entities.Flight;
 import com.acmeair.entities.FlightSegment;
@@ -38,6 +42,8 @@ import com.acmeair.service.KeyGenerator;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
 
+@Primary
+@Service
 @DataService(name=MorphiaConstants.KEY,description=MorphiaConstants.KEY_DESCRIPTION)
 public class FlightServiceImpl extends FlightService implements  MorphiaConstants {
 
@@ -46,6 +52,7 @@ public class FlightServiceImpl extends FlightService implements  MorphiaConstant
 	Datastore datastore;
 	
 	@Inject
+	@Autowired
 	KeyGenerator keyGenerator;
 	
 
