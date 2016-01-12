@@ -65,13 +65,13 @@ public class RESTCookieSessionFilter implements Filter {
 		
 		String path = request.getContextPath() + request.getServletPath() + request.getPathInfo();
 		// The following code is to ensure that OG is always set on the thread	
-		try{			
-			if (transactionService!=null)
-				transactionService.prepareForTransaction();
-		}catch( Exception e)
-		{
-			e.printStackTrace();
-		}
+		//try{			
+		//	if (transactionService!=null)
+		//		transactionService.prepareForTransaction();
+		//}catch( Exception e)
+		//{
+		//	e.printStackTrace();
+		//}
 	
 		
 		if (path.endsWith(LOGIN_PATH) || path.endsWith(LOGOUT_PATH) || path.endsWith(LOADDB_PATH)) {
