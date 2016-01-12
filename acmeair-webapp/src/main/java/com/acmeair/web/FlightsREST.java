@@ -33,7 +33,8 @@ import com.acmeair.service.ServiceLocator;
 import com.acmeair.web.dto.TripFlightOptions;
 import com.acmeair.web.dto.TripLegInfo;
 
-@Path("/flights")
+//@Path("/flights")
+@Path("/rest/api/flights")
 public class FlightsREST {
 	
 	@Autowired

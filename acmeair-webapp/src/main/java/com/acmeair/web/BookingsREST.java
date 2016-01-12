@@ -29,7 +29,8 @@ import com.acmeair.service.ServiceLocator;
 import com.acmeair.web.dto.BookingInfo;
 import com.acmeair.web.dto.BookingReceiptInfo;
 
-@Path("/bookings")
+//@Path("/bookings")
+@Path("/rest/api/bookings")
 public class BookingsREST {
 	
 	@Autowired

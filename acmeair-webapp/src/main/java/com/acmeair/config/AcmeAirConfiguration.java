@@ -21,8 +21,8 @@ import com.acmeair.service.CustomerService;
 import com.acmeair.service.FlightService;
 import com.acmeair.service.ServiceLocator;
 
-
-@Path("/config")
+//@Path("/config")
+@Path("/rest/info/config")
 public class AcmeAirConfiguration {
     
 	//@Inject

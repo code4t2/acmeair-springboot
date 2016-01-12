@@ -28,7 +28,8 @@ import com.acmeair.web.dto.*;
 
 import javax.ws.rs.core.Context;
 
-@Path("/customer")
+//@Path("/customer")
+@Path("/rest/api/customer")
 public class CustomerREST {
 	
 	@Autowired
