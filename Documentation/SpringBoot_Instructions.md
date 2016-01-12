@@ -16,13 +16,13 @@ Choose one of the following -
 Windows:
 ```text
 cd $ACMEAIR_SRCDIR\acmeair-webapp\build\libs\
-java -jar acmeair-webapp-1.1.0-SNAPSHOT.war
+java -jar acmeair-webapp-2.0.0-SNAPSHOT.war
 ```
 
 Linux:
 ```text
 cd $ACMEAIR_SRCDIR/acmeair-webapp/build/libs/
-java -jar acmeair-webapp-1.1.0-SNAPSHOT.war
+java -jar acmeair-webapp-2.0.0-SNAPSHOT.war
 ```
 
 ## Look at the application
