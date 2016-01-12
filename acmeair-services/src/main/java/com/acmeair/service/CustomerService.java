@@ -20,6 +20,8 @@ import java.util.Date;
 
 import javax.inject.Inject;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.acmeair.entities.Customer;
 import com.acmeair.entities.CustomerAddress;
 import com.acmeair.entities.Customer.MemberShipStatus;
@@ -30,6 +32,7 @@ public abstract class CustomerService {
 	protected static final int DAYS_TO_ALLOW_SESSION = 1;
 	
 	@Inject
+	@Autowired
 	protected KeyGenerator keyGenerator;
 	
 	public abstract Customer createCustomer(

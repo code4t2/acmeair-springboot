@@ -36,8 +36,11 @@ import java.util.logging.Logger;
 
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class ServiceLocator {
 
 	public static String REPOSITORY_LOOKUP_KEY = "com.acmeair.repository.type";
@@ -46,8 +49,13 @@ public class ServiceLocator {
 
 	private static AtomicReference<ServiceLocator> singletonServiceLocator = new AtomicReference<ServiceLocator>();
 
-	@Inject
+	//@Inject
 	BeanManager beanManager;
+	
+	@Autowired
+	ApplicationContext appContext;
+	
+	TreeMap<String,String> services = new TreeMap<String,String>();
 	
 	public static ServiceLocator instance() {
 		if (singletonServiceLocator.get() == null) {
@@ -243,19 +251,28 @@ public class ServiceLocator {
 	 * @return Map containing a list of services available and a description of each one.
 	 */
 	public Map<String,String> getServices (){
-		TreeMap<String,String> services = new TreeMap<String,String>();
+		//TreeMap<String,String> services = new TreeMap<String,String>();
 		logger.fine("Getting CustomerService Impls");
-    	Set<Bean<?>> beans = beanManager.getBeans(CustomerService.class,new AnnotationLiteral<Any>() {
-			private static final long serialVersionUID = 1L;});
-    	for (Bean<?> bean : beans) {    		
-    		for (Annotation qualifer: bean.getQualifiers()){
-    			if(DataService.class.getName().equalsIgnoreCase(qualifer.annotationType().getName())){
-    				DataService service = (DataService) qualifer;
-    				logger.fine("   name="+service.name()+" description="+service.description());
-    				services.put(service.name(), service.description());
-    			}
-    		}
-    	}    	
+		
+		if (null == services || services.isEmpty()) {
+	    	if (null != beanManager) {
+	    		// JEE
+	    		Set<Bean<?>> beans = beanManager.getBeans(CustomerService.class,new AnnotationLiteral<Any>() {
+	    			private static final long serialVersionUID = 1L;});
+	        	for (Bean<?> bean : beans) {    		
+	        		for (Annotation qualifer: bean.getQualifiers()){
+	        			if(DataService.class.getName().equalsIgnoreCase(qualifer.annotationType().getName())){
+	        				DataService service = (DataService) qualifer;
+	        				logger.fine("   name="+service.name()+" description="+service.description());
+	        				services.put(service.name(), service.description());
+	        			}
+	        		}
+	        	}
+	    	} else {
+	    		// spring?
+	    	}
+		}
+
     	return services;
 	}
 	
@@ -270,5 +287,12 @@ public class ServiceLocator {
 			return "default";
 		}
 		return serviceType;
+	}
+	
+	/**
+	 * 
+	 */
+	public void setServices(TreeMap<String,String> _services) {
+		this.services = _services;
 	}
 }
