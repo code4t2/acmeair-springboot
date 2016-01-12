@@ -14,6 +14,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.acmeair.service.BookingService;
 import com.acmeair.service.CustomerService;
 import com.acmeair.service.FlightService;
@@ -23,39 +25,45 @@ import com.acmeair.service.ServiceLocator;
 @Path("/config")
 public class AcmeAirConfiguration {
     
-	@Inject
-	BeanManager beanManager;
+	//@Inject
+	//BeanManager beanManager;
+	
 	Logger logger = Logger.getLogger(AcmeAirConfiguration.class.getName());
 
-	private BookingService bs = ServiceLocator.instance().getService(BookingService.class);
-	private CustomerService customerService = ServiceLocator.instance().getService(CustomerService.class);
-	private FlightService flightService = ServiceLocator.instance().getService(FlightService.class);
+	@Autowired
+	private BookingService bs; // = ServiceLocator.instance().getService(BookingService.class);
+	
+	@Autowired
+	private CustomerService customerService; // = ServiceLocator.instance().getService(CustomerService.class);
+	
+	@Autowired
+	private FlightService flightService; // = ServiceLocator.instance().getService(FlightService.class);
 
 	
     public AcmeAirConfiguration() {
         super();
     }
 
-	@PostConstruct
-	private void initialization()  {		
-		if(beanManager == null){
-			logger.info("Attempting to look up BeanManager through JNDI at java:comp/BeanManager");
-			try {
-				beanManager = (BeanManager) new InitialContext().lookup("java:comp/BeanManager");
-			} catch (NamingException e) {
-				logger.severe("BeanManager not found at java:comp/BeanManager");
-			}
-		}
-		
-		if(beanManager == null){
-			logger.info("Attempting to look up BeanManager through JNDI at java:comp/env/BeanManager");
-			try {
-				beanManager = (BeanManager) new InitialContext().lookup("java:comp/env/BeanManager");
-			} catch (NamingException e) {
-				logger.severe("BeanManager not found at java:comp/env/BeanManager ");
-			}
-		}
-	}
+//	@PostConstruct
+//	private void initialization()  {		
+//		if(beanManager == null){
+//			logger.info("Attempting to look up BeanManager through JNDI at java:comp/BeanManager");
+//			try {
+//				beanManager = (BeanManager) new InitialContext().lookup("java:comp/BeanManager");
+//			} catch (NamingException e) {
+//				logger.severe("BeanManager not found at java:comp/BeanManager");
+//			}
+//		}
+//		
+//		if(beanManager == null){
+//			logger.info("Attempting to look up BeanManager through JNDI at java:comp/env/BeanManager");
+//			try {
+//				beanManager = (BeanManager) new InitialContext().lookup("java:comp/env/BeanManager");
+//			} catch (NamingException e) {
+//				logger.severe("BeanManager not found at java:comp/env/BeanManager ");
+//			}
+//		}
+//	}
     
     
 	@GET

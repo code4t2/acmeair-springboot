@@ -29,11 +29,15 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.acmeair.entities.CustomerSession;
 import com.acmeair.service.CustomerService;
 import com.acmeair.service.ServiceLocator;
 import com.acmeair.service.TransactionService;
 
+@Component
 public class RESTCookieSessionFilter implements Filter {
 	
 	static final String LOGIN_USER = "acmeair.login_user";
@@ -41,11 +45,13 @@ public class RESTCookieSessionFilter implements Filter {
 	private static final String LOGOUT_PATH = "/rest/api/login/logout";
 	private static final String LOADDB_PATH = "/rest/api/loaddb";
 	
-	private CustomerService customerService = ServiceLocator.instance().getService(CustomerService.class);
-	private TransactionService transactionService = ServiceLocator.instance().getService(TransactionService.class);; 
+	@Autowired
+	private CustomerService customerService; // = ServiceLocator.instance().getService(CustomerService.class);
 
-	@Inject
-	BeanManager beanManager;
+	//private TransactionService transactionService; // = ServiceLocator.instance().getService(TransactionService.class);; 
+
+	//@Inject
+	//BeanManager beanManager;
 	
 	@Override
 	public void destroy() {

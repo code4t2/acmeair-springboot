@@ -21,6 +21,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import javax.ws.rs.core.Response.Status;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.acmeair.entities.Booking;
 import com.acmeair.service.BookingService;
 import com.acmeair.service.ServiceLocator;
@@ -30,7 +32,8 @@ import com.acmeair.web.dto.BookingReceiptInfo;
 @Path("/bookings")
 public class BookingsREST {
 	
-	private BookingService bs = ServiceLocator.instance().getService(BookingService.class);
+	@Autowired
+	private BookingService bs; // = ServiceLocator.instance().getService(BookingService.class);
 	
 	@POST
 	@Consumes({"application/x-www-form-urlencoded"})

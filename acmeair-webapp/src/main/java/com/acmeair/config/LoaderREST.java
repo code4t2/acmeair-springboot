@@ -8,6 +8,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.acmeair.loader.Loader;
 
 
@@ -17,6 +19,7 @@ public class LoaderREST {
 //	private static Logger logger = Logger.getLogger(LoaderREST.class.getName());
 	
 	@Inject
+	@Autowired
 	private Loader loader;	
 	
 	@GET

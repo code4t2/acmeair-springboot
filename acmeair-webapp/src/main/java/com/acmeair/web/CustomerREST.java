@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.acmeair.entities.Customer;
 import com.acmeair.entities.CustomerAddress;
 import com.acmeair.service.*;
@@ -29,16 +31,17 @@ import javax.ws.rs.core.Context;
 @Path("/customer")
 public class CustomerREST {
 	
-	private CustomerService customerService = ServiceLocator.instance().getService(CustomerService.class);
-	
-	@Context 
-	private HttpServletRequest request;
+	@Autowired
+	private CustomerService customerService; // = ServiceLocator.instance().getService(CustomerService.class);
 
+	@Context
+	private HttpServletRequest request;
 
 	private boolean validate(String customerid)	{
 		String loginUser = (String) request.getAttribute(RESTCookieSessionFilter.LOGIN_USER);
 		return customerid.equals(loginUser);
 	}
+
 	@GET
 	@Path("/byid/{custid}")
 	@Produces("application/json")
