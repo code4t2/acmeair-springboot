@@ -1,0 +1,25 @@
+server:
+  port: 8080
+
+spring:
+  jersey:
+    type: filter
+    fitler:
+      order: 1
+
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    sensitive: false
+
+eureka:
+  instance:
+    hostname: acmeair-webapp
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/
