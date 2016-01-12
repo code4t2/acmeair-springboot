@@ -21,19 +21,23 @@ import java.io.LineNumberReader;
 import java.util.*;
 import java.math.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.acmeair.entities.AirportCodeMapping;
 import com.acmeair.service.FlightService;
 import com.acmeair.service.ServiceLocator;
 
 
 
-
+@Component
 public class FlightLoader {
 	
 	private static final int MAX_FLIGHTS_PER_SEGMENT = 30;
 	
 
-	private FlightService flightService = ServiceLocator.instance().getService(FlightService.class);
+	@Autowired
+	private FlightService flightService; // = ServiceLocator.instance().getService(FlightService.class);
 
 	public void loadFlights() throws Exception {
 		InputStream csvInputStream = FlightLoader.class.getResourceAsStream("/mileage.csv");

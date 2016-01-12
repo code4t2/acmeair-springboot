@@ -21,10 +21,20 @@ import java.io.InputStream;
 import java.util.Properties;
 import java.util.logging.Logger;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
 public class Loader {
 	public static String REPOSITORY_LOOKUP_KEY = "com.acmeair.repository.type";
 
 	private static Logger logger = Logger.getLogger(Loader.class.getName());
+	
+	@Autowired
+	FlightLoader flightLoader;
+	
+	@Autowired
+	CustomerLoader customerLoader;
 
 	public String queryLoader() {			
 		String message = System.getProperty("loader.numCustomers");
@@ -67,8 +77,10 @@ public class Loader {
 	
 	
 	private String execute(long numCustomers) {
-		FlightLoader flightLoader = new FlightLoader();
-		CustomerLoader customerLoader = new CustomerLoader();
+		//FlightLoader flightLoader = new FlightLoader();
+		//CustomerLoader customerLoader = new CustomerLoader();
+		if (null == flightLoader) flightLoader = new FlightLoader();
+		if (null == customerLoader) customerLoader = new CustomerLoader();
 
     	double length = 0;
 		try {

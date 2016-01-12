@@ -15,6 +15,9 @@
 *******************************************************************************/
 package com.acmeair.loader;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.acmeair.entities.Customer;
 import com.acmeair.entities.CustomerAddress;
 import com.acmeair.entities.Customer.PhoneType;
@@ -22,9 +25,11 @@ import com.acmeair.service.CustomerService;
 import com.acmeair.service.ServiceLocator;
 
 
+@Component
 public class CustomerLoader {
 
-	private CustomerService customerService = ServiceLocator.instance().getService(CustomerService.class);
+	@Autowired
+	private CustomerService customerService; // = ServiceLocator.instance().getService(CustomerService.class);
 
 	
 	public void loadCustomers(long numCustomers) {
