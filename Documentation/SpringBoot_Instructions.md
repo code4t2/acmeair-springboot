@@ -9,6 +9,19 @@ Choose one of the following -
 * [MongoDB](SpringBoot_to_Mongo_Instructions.md)
 
 
+## Alternative deploy on Bluemix
+
+* Deploy the application on Bluemix using CLI
+
+```text
+cf push acmeair -p acmeair-webapp-2.0.0-SNAPSHOT.war
+
+cf set-env acmeair JAVA_OPTS "-Dserver.port=\\\$VCAP_APP_PORT -Dserver.address=\\\$VCAP_APP_HOST"
+
+# re-deploy or restart it
+cf push acmeair -p acmeair-webapp-2.0.0-SNAPSHOT.war
+```
+
 
 ## Start the Spring Boot application
 
