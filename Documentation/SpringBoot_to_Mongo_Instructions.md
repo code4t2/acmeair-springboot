@@ -28,6 +28,6 @@ export VCAP_SERVICES='{"mongo":[{"credentials":{"url":"mongodb://localhost:27017
 
 See the MongoDB [Manual](http://docs.mongodb.org/manual/) for more information on using MongoDB. 
 
-## Start Liberty and Load the database.
+## Start Spring Boot app and Load the database.
 
 Follow the remaining steps in the [Spring Boot instructions document](SpringBoot_Instructions.md).
