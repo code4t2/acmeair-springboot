@@ -109,9 +109,11 @@ project(':acmeair-webapp') {
               transitive = false
            }
  
-           compile ('org.mongodb.morphia:morphia:0.110')  {
+           compile ('org.mongodb.morphia:morphia:1.0.1')  {
               transitive = false
            }
+
+           compile ('org.mongodb:mongo-java-driver:3.2.0')
         }
 
         if ("$includeService".equalsIgnoreCase("wxs") || "$includeService".equalsIgnoreCase("ALL")) {
