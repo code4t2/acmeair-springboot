@@ -25,15 +25,4 @@ public class IsoDate {
 	public Date getDate() {
 		return date;
 	}
-	
-	public static void main(String[] args) throws ParseException {
-		Date d0 = new Date();
-		System.out.println(d0);
-		
-		ISO8601DateFormat df = new ISO8601DateFormat();
-		String s = "Tue Jan 12 2016 00:00:00 GMT+0800 (CST)";
-		Date d = df.parse(s);
-		System.out.println(d);
-		
-	}
 }
