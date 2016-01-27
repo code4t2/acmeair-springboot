@@ -10,6 +10,8 @@ import javax.servlet.ServletException;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.request.RequestContextListener;
 
@@ -17,6 +19,8 @@ import com.acmeair.service.DataService;
 import com.acmeair.service.ServiceLocator;
 
 @SpringBootApplication
+@EnableDiscoveryClient
+@EnableCircuitBreaker
 public class Application extends SpringBootServletInitializer {
 
 	@Override
@@ -39,7 +43,6 @@ public class Application extends SpringBootServletInitializer {
 			Annotation qualifer = clazz.getAnnotation(DataService.class);
 			DataService service = (DataService) qualifer;
 			
-			//logger.fine("   name="+service.name()+" description="+service.description());s
 			services.put(service.name(), service.description());
 		}
 		ServiceLocator.instance().setServices(services);
