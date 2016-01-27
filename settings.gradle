@@ -1,1 +1,1 @@
-include 'acmeair-common', 'acmeair-services', 'acmeair-services-morphia', 'acmeair-loader', 'acmeair-webapp'
+include 'acmeair-common', 'acmeair-services', 'acmeair-services-morphia', 'acmeair-loader', 'acmeair-webapp', 'acmeair-auth-service'

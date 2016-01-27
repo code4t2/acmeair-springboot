@@ -1,6 +1,6 @@
 
 task wrapper(type: Wrapper) {
-   gradleVersion = '2.6'
+   gradleVersion = '2.10'
 }
 
 buildscript {
@@ -50,14 +50,6 @@ project(':acmeair-services') {
     }
 }
 
-project(':acmeair-services-wxs') {
-    dependencies {
-        compile project(':acmeair-common')
-        compile project(':acmeair-services')
-        compile 'com.ibm.websphere.objectgrid:objectgrid:8.6.0.2'
-    }
-}
-
 
 
 project(':acmeair-services-morphia') {
@@ -94,6 +86,12 @@ project(':acmeair-webapp') {
         compile("org.springframework.boot:spring-boot-starter-actuator")
         providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
 
+        compile 'org.sonatype.sisu.inject:cglib:3.1.1'
+        compile("io.pivotal.spring.cloud:spring-cloud-services-starter-service-registry:1.0.1.RELEASE")
+        compile("io.pivotal.spring.cloud:spring-cloud-services-starter-config-client:1.0.1.RELEASE")
+        compile("io.pivotal.spring.cloud:spring-cloud-services-starter-circuit-breaker:1.0.1.RELEASE")
+        compile("com.netflix.hystrix:hystrix-javanica:1.4.23")
+
         def includeService = "ALL"
         if (project.hasProperty('service') ) {
            println "property service exists and has a value of $service "
@@ -116,14 +114,50 @@ project(':acmeair-webapp') {
            compile ('org.mongodb:mongo-java-driver:3.2.0')
         }
 
-        if ("$includeService".equalsIgnoreCase("wxs") || "$includeService".equalsIgnoreCase("ALL")) {
-           println "Including WXS service "
+        providedRuntime 'javax:javaee-web-api:7.0'
+    }
+}
 
-           compile project(':acmeair-services-wxs')
-           providedRuntime 'com.ibm.websphere.objectgrid:objectgrid:8.6.0.2'
+
+project(':acmeair-auth-service') {
+    apply plugin: 'spring-boot'
+    apply plugin: 'war'
+
+    dependencies {
+        compile project(':acmeair-common')
+        compile project(':acmeair-services')
+        compile project(':acmeair-loader')
+        compile 'javax.enterprise:cdi-api:1.2'
+        compile("org.springframework.boot:spring-boot-starter-jersey")
+        compile("org.springframework.boot:spring-boot-starter-actuator")
+
+        compile("io.pivotal.spring.cloud:spring-cloud-services-starter-service-registry:1.0.1.RELEASE")
+        compile("io.pivotal.spring.cloud:spring-cloud-services-starter-config-client:1.0.1.RELEASE")
+
+        providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+
+        def includeService = "ALL"
+        if (project.hasProperty('service') ) {
+           println "property service exists and has a value of $service "
+           includeService = service
+        } else {
+           println "property service was not set. Using the default value of $includeService"
+           println "   To pick a specific service set the service property using the -P parameter, for example gradlew -Pservice=morphia build " 
+        }
+
+        if ("$includeService".equalsIgnoreCase("morphia") || "$includeService".equalsIgnoreCase("ALL")) {
+           println "Including mongoDB morphia service "
+           compile (project(':acmeair-services-morphia')) {
+              transitive = false
+           }
+ 
+           compile ('org.mongodb.morphia:morphia:1.0.1')  {
+              transitive = false
+           }
+
+           compile ('org.mongodb:mongo-java-driver:3.2.0')
         }
 
         providedRuntime 'javax:javaee-web-api:7.0'
     }
 }
-
