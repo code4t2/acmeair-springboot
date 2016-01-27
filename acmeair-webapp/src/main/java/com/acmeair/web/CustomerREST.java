@@ -38,18 +38,24 @@ public class CustomerREST {
 	@Context
 	private HttpServletRequest request;
 
+	@Deprecated
 	private boolean validate(String customerid)	{
 		String loginUser = (String) request.getAttribute(RESTCookieSessionFilter.LOGIN_USER);
+		return customerid.equals(loginUser);
+	}
+	
+	private boolean validate(String customerid, HttpServletRequest hsr) {
+		String loginUser = (String) hsr.getAttribute(RESTCookieSessionFilter.LOGIN_USER);
 		return customerid.equals(loginUser);
 	}
 
 	@GET
 	@Path("/byid/{custid}")
 	@Produces("application/json")
-	public Response getCustomer(@CookieParam("sessionid") String sessionid, @PathParam("custid") String customerid) {
+	public Response getCustomer(@CookieParam("sessionid") String sessionid, @PathParam("custid") String customerid, @Context HttpServletRequest hsr) {
 		try {
 			// make sure the user isn't trying to update a customer other than the one currently logged in
-			if (!validate(customerid)) {
+			if (!validate(customerid, hsr)) {
 				return Response.status(Response.Status.FORBIDDEN).build();
 				
 			}
@@ -66,8 +72,8 @@ public class CustomerREST {
 	@POST
 	@Path("/byid/{custid}")
 	@Produces("application/json")
-	public /* Customer */ Response putCustomer(@CookieParam("sessionid") String sessionid, CustomerInfo customer) {
-		if (!validate(customer.getUsername())) {
+	public /* Customer */ Response putCustomer(@CookieParam("sessionid") String sessionid, CustomerInfo customer, @Context HttpServletRequest hsr) {
+		if (!validate(customer.getUsername(), hsr)) {
 			return Response.status(Response.Status.FORBIDDEN).build();
 		}
 		
