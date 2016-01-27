@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (c) 2013 IBM Corp.
+* Copyright (c) 2016 IBM Corp.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -18,19 +18,43 @@ package com.acmeair.entities;
 
 import java.util.Date;
 
-public interface CustomerSession {
+public class CustomerSession {
 
-	
-	public String getId();
+	protected String _id;
+	protected String customerid;
+	protected Date lastAccessedTime;
+	protected Date timeoutTime;
 
+	public String getId() {
+		return _id;
+	}
 
-	public String getCustomerid();
+	public void setId(String id) {
+		this._id = id;
+	}
 
+	public String getCustomerid() {
+		return customerid;
+	}
 
-	public Date getLastAccessedTime();
-	
+	public void setCustomerid(String customerid) {
+		this.customerid = customerid;
+	}
 
-	public Date getTimeoutTime();
+	public Date getLastAccessedTime() {
+		return lastAccessedTime;
+	}
 
+	public void setLastAccessedTime(Date lastAccessedTime) {
+		this.lastAccessedTime = lastAccessedTime;
+	}
+
+	public Date getTimeoutTime() {
+		return timeoutTime;
+	}
+
+	public void setTimeoutTime(Date timeoutTime) {
+		this.timeoutTime = timeoutTime;
+	}
 	
 }

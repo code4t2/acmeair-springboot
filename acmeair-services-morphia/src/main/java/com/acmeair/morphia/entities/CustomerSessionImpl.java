@@ -24,16 +24,12 @@ import org.mongodb.morphia.annotations.Entity;
 import com.acmeair.entities.CustomerSession;
 
 @Entity(value="customerSession")
-public class CustomerSessionImpl implements CustomerSession, Serializable {
+public class CustomerSessionImpl extends CustomerSession implements Serializable {
 
 
 	private static final long serialVersionUID = 1L;
 
-	private String _id;
-	private String customerid;
-	private Date lastAccessedTime;
-	private Date timeoutTime;
-	
+
 	public CustomerSessionImpl() {
 	}
 
@@ -43,39 +39,7 @@ public class CustomerSessionImpl implements CustomerSession, Serializable {
 		this.lastAccessedTime = lastAccessedTime;
 		this.timeoutTime = timeoutTime;
 	}
-	
 
-	public String getId() {
-		return _id;
-	}
-
-	public void setId(String id) {
-		this._id = id;
-	}
-
-	public String getCustomerid() {
-		return customerid;
-	}
-
-	public void setCustomerid(String customerid) {
-		this.customerid = customerid;
-	}
-
-	public Date getLastAccessedTime() {
-		return lastAccessedTime;
-	}
-
-	public void setLastAccessedTime(Date lastAccessedTime) {
-		this.lastAccessedTime = lastAccessedTime;
-	}
-
-	public Date getTimeoutTime() {
-		return timeoutTime;
-	}
-
-	public void setTimeoutTime(Date timeoutTime) {
-		this.timeoutTime = timeoutTime;
-	}
 
 	@Override
 	public String toString() {
