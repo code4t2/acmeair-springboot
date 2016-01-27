@@ -35,7 +35,9 @@ import org.springframework.stereotype.Component;
 import com.acmeair.entities.CustomerSession;
 import com.acmeair.service.CustomerService;
 import com.acmeair.service.ServiceLocator;
-import com.acmeair.service.TransactionService;
+//import com.acmeair.service.TransactionService;
+
+import com.acmeair.web.hystrixcommands.TokenService;
 
 @Component
 public class RESTCookieSessionFilter implements Filter {
