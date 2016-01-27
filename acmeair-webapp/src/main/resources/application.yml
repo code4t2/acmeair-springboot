@@ -12,6 +12,17 @@ endpoints:
   health:
     sensitive: false
 
+ribbon:
+  IsSecure: false
+
+security:
+  basic:
+    enabled: false
+
+management:
+  security:
+    enabled: false
+
 eureka:
   instance:
     hostname: acmeair-webapp
@@ -19,4 +30,4 @@ eureka:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: http://discovery:8761/eureka/
+      defaultZone: http://localhost:8761/eureka/
