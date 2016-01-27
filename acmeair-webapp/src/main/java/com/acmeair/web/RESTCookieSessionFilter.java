@@ -47,6 +47,9 @@ public class RESTCookieSessionFilter implements Filter {
 	
 	@Autowired
 	private CustomerService customerService; // = ServiceLocator.instance().getService(CustomerService.class);
+	
+	@Autowired
+	private TokenService tokenService;
 
 	//private TransactionService transactionService; // = ServiceLocator.instance().getService(TransactionService.class);; 
 
@@ -63,7 +66,7 @@ public class RESTCookieSessionFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest)req;
 		HttpServletResponse response = (HttpServletResponse)resp;
 		
-		String path = request.getContextPath() + request.getServletPath() + request.getPathInfo();
+		String path = request.getContextPath() + request.getServletPath(); // + request.getPathInfo();
 		// The following code is to ensure that OG is always set on the thread	
 		//try{			
 		//	if (transactionService!=null)
@@ -99,8 +102,11 @@ public class RESTCookieSessionFilter implements Filter {
 				response.sendError(HttpServletResponse.SC_FORBIDDEN);
 				return;
 			}
+			
 			// Need the URLDecoder so that I can get @ not %40
-			CustomerSession cs = customerService.validateSession(sessionId);
+			//CustomerSession cs = customerService.validateSession(sessionId);
+			/* replace with REST with circuit-breaker */
+			CustomerSession cs = tokenService.validateToken(sessionId);
 			if (cs != null) {
 				request.setAttribute(LOGIN_USER, cs.getCustomerid());
 				chain.doFilter(req, resp);

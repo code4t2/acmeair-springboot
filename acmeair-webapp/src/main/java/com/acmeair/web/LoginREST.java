@@ -23,6 +23,7 @@ import org.springframework.stereotype.Component;
 
 import com.acmeair.entities.CustomerSession;
 import com.acmeair.service.*;
+import com.acmeair.web.hystrixcommands.TokenService;
 
 //@Path("/login")
 @Path("/rest/api/login")
@@ -33,6 +34,8 @@ public class LoginREST {
 	@Autowired
 	private CustomerService customerService; // = ServiceLocator.instance().getService(CustomerService.class);
 	
+	@Autowired
+	private TokenService tokenService;
 	
 	@POST
 	@Consumes({"application/x-www-form-urlencoded"})
@@ -45,7 +48,10 @@ public class LoginREST {
 				return Response.status(Response.Status.FORBIDDEN).build();
 			}
 			
-			CustomerSession session = customerService.createSession(login);
+			//CustomerSession session = customerService.createSession(login);
+			/* replace with REST with circuit-breaker */
+			CustomerSession session = tokenService.createToken(login);
+			
 			// TODO:  Need to fix the security issues here - they are pretty gross likely
 			NewCookie sessCookie = new NewCookie(SESSIONID_COOKIE_NAME, session.getId());
 			// TODO: The mobile client app requires JSON in the response. 
@@ -67,7 +73,10 @@ public class LoginREST {
 	@Produces("text/plain")
 	public Response logout(@QueryParam("login") String login, @CookieParam("sessionid") String sessionid) {
 		try {
-			customerService.invalidateSession(sessionid);
+			//customerService.invalidateSession(sessionid);
+			/* replace with REST with circuit-breaker */
+			tokenService.invalidateToken(sessionid);
+			
 			// The following call will trigger query against all partitions, disable for now
 //			customerService.invalidateAllUserSessions(login);
 			
